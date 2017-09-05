@@ -1,7 +1,6 @@
-package entity;
+package ru.savimar.stafftime.entity;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
