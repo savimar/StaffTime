@@ -5,4 +5,22 @@
          version="3.1">
 
 
+    <servlet>
+        <servlet-name>myservlet</servlet-name>
+        <servlet-class>
+            com.vaadin.server.VaadinServlet
+        </servlet-class>
+
+        <init-param>
+            <param-name>UI</param-name>
+            <param-value>ru.savimar.stafftime.vaadin.MainPage</param-value>
+        </init-param>
+
+
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>myservlet</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
 </web-app>

@@ -1,13 +1,15 @@
 package ru.savimar.stafftime.entity;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "status", schema = "public", catalog = "stafftime")
-public class Status{
+public class Status {
     private long id;
     private LocalDateTime time;
+    private String name;
+
 
     @Id
     @Column(name = "id", nullable = false)
@@ -25,9 +27,21 @@ public class Status{
         return time;
     }
 
+    @Basic
+    @Column(name = "name", nullable = false)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public void setTime(LocalDateTime time) {
         this.time = time;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
