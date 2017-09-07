@@ -1,28 +1,38 @@
 package ru.savimar.stafftime.repo;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
-import org.springframework.transaction.annotation.Transactional;
 import ru.savimar.stafftime.entity.Status;
 
+
+import java.sql.SQLException;
 import java.util.List;
 
+import static ru.savimar.stafftime.repo.JDBCPostgreSQLConnection.*;
 
 
-public interface StatusRepo extends CrudRepository<Status, Long> {
+public class StatusRepo {
 
-    int delete(@Param("id") long id);
+    JDBCPostgreSQLConnection connection = new JDBCPostgreSQLConnection();
 
-
-     Status save(Status status);
-
-
-    Status findById(long id);
+    public int delete(long id) {
+        return 0;
+    }
 
 
-    List<Status> findAll();
+    public void save(String name) throws SQLException {
+
+        connection.insertRecordIntoTable(name);
+
+    }
 
 
+    public Status findById(long id) {
+        return null;
+    }
+
+
+    public List<Status> findAll() {
+
+return null;
+    }
 
 }

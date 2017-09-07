@@ -5,10 +5,10 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import ru.savimar.stafftime.entity.Status;
 import ru.savimar.stafftime.service.StatusService;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 
@@ -24,8 +24,8 @@ public class MainPage extends UI {
 
 
 
-    @Autowired
-    StatusService statusService;
+
+    StatusService statusService = new StatusService();
 
 
     @Override
@@ -35,17 +35,22 @@ public class MainPage extends UI {
 
         comeButton = new Button("Пришел");
         comeButton.addClickListener( event ->{
-                Status status= new Status();
-                status.setTime(LocalDateTime.now());
-                status.setName("Пришел");
-                statusService.save(status);
+            try {
+                statusService.save("На работе");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
 
         });
         layout.addComponent(comeButton);
 
-        leaveButton = new Button("Ушел");
+        leaveButton = new Button("Отсутсвует");
         comeButton.addClickListener(event->{
-
+            try {
+                statusService.save("");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         });
         layout.addComponent(leaveButton);
 

@@ -4,12 +4,15 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-@Entity
+
 public class Status {
     private long id;
     private LocalDateTime time;
     private String name;
 
+    public static final String GET = "Status.get";
+    public static final String ALL_SORTED = "Status.getAll";
+    public static final String DELETE = "Status.delete";
 
     @Id
     @Column(name = "id", nullable = false)
