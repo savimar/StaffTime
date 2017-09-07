@@ -32,7 +32,7 @@ public class MainPage extends UI {
 
     private static final Logger LOG = Logger.getLogger(MainPage.class);
 
-    StatusService statusService = new StatusService();
+    private StatusService statusService = new StatusService();
 
     @Override
     public void init(VaadinRequest request) {
@@ -68,7 +68,7 @@ public class MainPage extends UI {
             } catch (SQLException e) {
                 LOG.error("Error writing to database, status \"На работе\"", e);
             }
-            List<Status> list = null;
+            List<Status> list;
             try {
                 list = statusService.findAll();
                 long minutes = 0;
@@ -86,7 +86,8 @@ public class MainPage extends UI {
 
                 URI sourceFileURL = new URI("file:///C:/myFiles/staff_time.xlsx");
                 File sourceFile = new File(sourceFileURL);
-                writeIntoExcel(sourceFile, minutes);
+                ExcelParser parser = new ExcelParser();
+                parser.writeIntoExcel(sourceFile, minutes);
 
 
             } catch (SQLException e) {
@@ -103,35 +104,5 @@ public class MainPage extends UI {
         layout.addComponent(workOutButton);
     }
 
-    public void writeIntoExcel(File file, long minutes) throws FileNotFoundException, IOException {
-        XSSFWorkbook book = new XSSFWorkbook();
-        XSSFSheet sheet = book.createSheet();
 
-        XSSFRow row1 = sheet.createRow(2);
-
-        Cell label = row1.createCell(0);
-        label.setCellValue("Вы отработали сегодня: ");
-
-        XSSFRow row2 = sheet.createRow(5);
-
-
-        Cell string = row2.createCell(0);
-        string.setCellValue(getHoursAngMinutes(minutes));
-
-        sheet.autoSizeColumn(1);
-
-        // Записываем всё в файл
-        book.write(new FileOutputStream(file));
-        book.close();
-    }
-
-    private String getHoursAngMinutes(long minutes) {
-        if (minutes > 59) {
-            long hours = minutes / 60;
-            minutes = minutes % 60;
-            return "" + hours + " часов и " + minutes + " минут";
-        } else {
-            return "" + minutes + " минут";
-        }
-    }
 }

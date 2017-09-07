@@ -24,7 +24,6 @@ public class Status {
         return time;
     }
 
-
     public String getName() {
         return name;
     }

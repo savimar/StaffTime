@@ -6,7 +6,7 @@ CREATE SEQUENCE global_seq START 1;
 
 CREATE TABLE status
 (
-  id         BIGSERIAL PRIMARY KEY DEFAULT nextval('global_seq'),
-  name       VARCHAR NOT NULL,
-  time      TIMESTAMP NOT NULL
+  id   BIGSERIAL PRIMARY KEY DEFAULT nextval('global_seq'),
+  name VARCHAR   NOT NULL,
+  time TIMESTAMP NOT NULL
 );

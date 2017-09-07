@@ -20,9 +20,7 @@ public class JDBCPostgreSQLConnection {
 
 
     private Connection getDBConnection() {
-
-        Connection dbConnection = null;
-
+        Connection dbConnection;
         try {
             Class.forName(DB_DRIVER);
 
@@ -39,7 +37,7 @@ public class JDBCPostgreSQLConnection {
             LOG.error("Error connecting to database", e);
         }
 
-        return dbConnection;
+        return null;
 
     }
 
@@ -52,8 +50,8 @@ public class JDBCPostgreSQLConnection {
 
     public void insertRecordIntoTable(String name) throws SQLException {
 
-        Connection dbConnection = null;
-        PreparedStatement preparedStatement = null;
+        Connection dbConnection;
+        PreparedStatement preparedStatement;
 
         String insertTableSQL = "INSERT INTO STATUS"
                 + "(NAME, TIME) VALUES"
@@ -61,19 +59,22 @@ public class JDBCPostgreSQLConnection {
 
         try {
             dbConnection = getDBConnection();
-            preparedStatement = dbConnection.prepareStatement(insertTableSQL);
-            preparedStatement.setString(1, name);
-            preparedStatement.setTimestamp(2, getCurrentTimeStamp());
-            preparedStatement.executeUpdate();
+            if (dbConnection != null) {
+                preparedStatement = dbConnection.prepareStatement(insertTableSQL);
+                preparedStatement.setString(1, name);
+                preparedStatement.setTimestamp(2, getCurrentTimeStamp());
+                preparedStatement.executeUpdate();
+            }
 
         } catch (SQLException e) {
             LOG.error("Error writing to database", e);
         }
 
+
     }
 
 
-    public  List<Status> getAll() throws SQLException {
+    public List<Status> getAll() throws SQLException {
         Connection dbConnection = null;
         PreparedStatement preparedStatement = null;
         List<Status> list = new ArrayList<>();
@@ -83,19 +84,21 @@ public class JDBCPostgreSQLConnection {
 
         try {
             dbConnection = getDBConnection();
-            preparedStatement = dbConnection.prepareStatement(selectTableSQL);
-            preparedStatement.setTimestamp(1, Timestamp.valueOf(LocalDate.now().atStartOfDay()));
-            preparedStatement.setTimestamp(2, Timestamp.valueOf(LocalDate.now().atTime(23, 59, 59)));
+            if (dbConnection != null) {
+                preparedStatement = dbConnection.prepareStatement(selectTableSQL);
+                preparedStatement.setTimestamp(1, Timestamp.valueOf(LocalDate.now().atStartOfDay()));
+                preparedStatement.setTimestamp(2, Timestamp.valueOf(LocalDate.now().atTime(23, 59, 59)));
 
-            ResultSet result = preparedStatement.executeQuery();
-            while (result.next()) {
-                Status status = new Status();
+                ResultSet result = preparedStatement.executeQuery();
+                while (result.next()) {
+                    Status status = new Status();
 
-                status.setId(result.getLong("id"));
-                status.setName(result.getString("name"));
-                status.setTime(result.getTimestamp("time").toLocalDateTime());
+                    status.setId(result.getLong("id"));
+                    status.setName(result.getString("name"));
+                    status.setTime(result.getTimestamp("time").toLocalDateTime());
 
-                list.add(status);
+                    list.add(status);
+                }
             }
 
         } catch (SQLException e) {
@@ -112,8 +115,10 @@ public class JDBCPostgreSQLConnection {
             }
 
         }
+
         return list;
     }
+
 }
 
 
