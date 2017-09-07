@@ -12,13 +12,10 @@ public class StatusRepo {
 
 
     public void save(String name) throws SQLException {
-
         connection.insertRecordIntoTable(name);
-
     }
 
     public List<Status> findAll() throws SQLException {
-
         return connection.getAll();
     }
 

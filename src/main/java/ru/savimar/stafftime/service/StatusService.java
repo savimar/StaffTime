@@ -12,8 +12,7 @@ public class StatusService {
     StatusRepo statusRepo = new StatusRepo();
 
     public List<Status> findAll() throws SQLException {
-        return statusRepo.findAll();
-    }
+        return statusRepo.findAll(); }
 
 
 
