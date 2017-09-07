@@ -5,7 +5,6 @@ import ru.savimar.stafftime.entity.Status;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +16,7 @@ public class JDBCPostgreSQLConnection {
     private static final String DB_PASSWORD = "root";
 
 
-    private static Connection getDBConnection() {
+    private Connection getDBConnection() {
 
         Connection dbConnection = null;
 
@@ -79,36 +78,25 @@ public class JDBCPostgreSQLConnection {
 
             //    System.out.println(e.getMessage());
 
-        } finally {
-
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-
-            if (dbConnection != null) {
-                dbConnection.close();
-            }
-
         }
 
     }
 
 
-    public static List<Status> getAll() throws SQLException {
+    public  List<Status> getAll() throws SQLException {
         Connection dbConnection = null;
         PreparedStatement preparedStatement = null;
 
         List<Status> list = new ArrayList<>();
 
-        String selectTableSQL = "SELECT * FROM STATUS where TIME BETWEEN >= ? and TIME <= ?";
+        String selectTableSQL = "SELECT * FROM status where time >= ? and time <= ?";
 
 
         try {
             dbConnection = getDBConnection();
             preparedStatement = dbConnection.prepareStatement(selectTableSQL);
 
-            // execute insert SQL stetement
-            preparedStatement.executeUpdate();
+
 
             preparedStatement.setTimestamp(1, Timestamp.valueOf(LocalDate.now().atStartOfDay()));
             preparedStatement.setTimestamp(2, Timestamp.valueOf(LocalDate.now().atTime(23, 59, 59)));

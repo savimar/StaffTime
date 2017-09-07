@@ -10,28 +10,18 @@ public class Status {
     private LocalDateTime time;
     private String name;
 
-    public static final String GET = "Status.get";
-    public static final String ALL_SORTED = "Status.getAll";
-    public static final String DELETE = "Status.delete";
 
-    @Id
-    @Column(name = "id", nullable = false)
+
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
-    @Basic
-    @Column(name = "time", nullable = false)
     public LocalDateTime getTime() {
         return time;
     }
 
-    @Basic
-    @Column(name = "name", nullable = false)
+
     public String getName() {
         return name;
     }

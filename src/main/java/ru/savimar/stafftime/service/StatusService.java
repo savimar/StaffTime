@@ -11,25 +11,16 @@ public class StatusService {
 
     StatusRepo statusRepo = new StatusRepo();
 
-    public List<Status> findAll() {
+    public List<Status> findAll() throws SQLException {
         return statusRepo.findAll();
     }
 
-
-    public Status findById(long id) {
-        return statusRepo.findById(id);
-    }
 
 
     public void save(String name) throws SQLException {
        statusRepo.save(name);
     }
 
-
-    public void delete(long id) {
-        statusRepo.delete(id);
-
-    }
 
 
 }
