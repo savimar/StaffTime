@@ -11,7 +11,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import ru.savimar.stafftime.entity.Status;
@@ -79,7 +79,7 @@ public class MainPage extends UI {
                         }
                     }
 
-                    URI sourceFileURL = new URI("file:///C:/staff_time.xlsx");
+                    URI sourceFileURL = new URI("file:///C:/myFiles/staff_time.xlsx");
                     File sourceFile = new File(sourceFileURL);
                     writeIntoExcel(sourceFile, minutes);
 
@@ -99,16 +99,15 @@ public class MainPage extends UI {
     }
 
     public void writeIntoExcel(File file, long minutes) throws FileNotFoundException, IOException {
-        Workbook book = new XSSFWorkbook();
-        Sheet sheet = book.getSheetAt(0);
+        XSSFWorkbook book = new XSSFWorkbook();
+        XSSFSheet sheet = book.createSheet();
 
-        // Нумерация начинается с нуля
-        Row row1 = sheet.createRow(0);
+        XSSFRow row1 = sheet.createRow(2);
 
         Cell label = row1.createCell(0);
         label.setCellValue("Вы отработали сегодня ");
 
-        Row row2 = sheet.createRow(0);
+        XSSFRow row2 = sheet.createRow(5);
 
 
         Cell string = row2.createCell(0);
