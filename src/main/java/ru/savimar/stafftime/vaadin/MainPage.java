@@ -3,21 +3,15 @@ package ru.savimar.stafftime.vaadin;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
-import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import org.apache.log4j.Logger;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import ru.savimar.stafftime.entity.Status;
 import ru.savimar.stafftime.service.StatusService;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -27,7 +21,6 @@ import java.util.List;
 
 
 @Theme("mytheme")
-@SpringUI
 public class MainPage extends UI {
 
     private static final Logger LOG = Logger.getLogger(MainPage.class);
