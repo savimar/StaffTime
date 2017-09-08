@@ -6,15 +6,13 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Assert;
 import org.junit.Test;
-import ru.savimar.stafftime.entity.Status;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Iterator;
-import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ExcelParserTest {
 
@@ -22,27 +20,31 @@ public class ExcelParserTest {
     public void writeIntoExcel() throws Exception {
         try {
             ExcelParser parser = new ExcelParser();
-            File writeFile = new File("C:\\myFiles\\excel_test.xlsx");
-            parser.writeIntoExcel(writeFile, 58);
+            String testFileName = "excel_test.xlsx";
+            URL sourceFileURL = getClass().getClassLoader().getResource(testFileName);
+            if(sourceFileURL != null) {
+                File writeFile = new File(sourceFileURL.toURI());
+                parser.writeIntoExcel(writeFile, 58);
 
-            String result = "";
-            FileInputStream readFile = new FileInputStream(new File("C:\\myFiles\\excel_test.xlsx"));
-            XSSFWorkbook workbook = new XSSFWorkbook(readFile);
-            XSSFSheet sheet = workbook.getSheetAt(0);
+                String result = "";
+                File sourceFile = new File(sourceFileURL.toURI());
+                FileInputStream readFile = new FileInputStream(sourceFile);
+                XSSFWorkbook workbook = new XSSFWorkbook(readFile);
+                XSSFSheet sheet = workbook.getSheetAt(0);
 
-            Iterator<Row> rowIterator = sheet.iterator();
-            while (rowIterator.hasNext()) {
-                Row row = rowIterator.next();
-                Iterator<Cell> cellIterator = row.cellIterator();
+                Iterator<Row> rowIterator = sheet.iterator();
+                while (rowIterator.hasNext()) {
+                    Row row = rowIterator.next();
+                    Iterator<Cell> cellIterator = row.cellIterator();
 
-                while (cellIterator.hasNext()) {
-                    Cell cell = cellIterator.next();
-                    result += cell.getStringCellValue();
+                    while (cellIterator.hasNext()) {
+                        Cell cell = cellIterator.next();
+                        result += cell.getStringCellValue();
+                    }
                 }
+                assertEquals(result, "Вы отработали сегодня: 58 минут");
             }
-           assertEquals(result, "Вы отработали сегодня: 58 минут");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             Assert.fail();
         }
