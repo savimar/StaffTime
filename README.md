@@ -15,6 +15,8 @@ Vaadin, JDBC, PostgreSql, Maven, JUnit, Log4j, Poi(выгрузка и загр�
 При нажатии на кнопку "Отработал" должен выгрузиться отчет Excel (из веб-сервера забирается расчетное время, сколько сотрудник отработал, с учетом нажатий кнопок "ушел" и "пришел".)
 
 
+
+# StaffTime
 "Accounting of employees' working hours" (simplified)
 
 Used technologies: Vaadin, JDBC, PostgreSql, Maven, JUnit, Log4j, Poi (upload and download Excel)
