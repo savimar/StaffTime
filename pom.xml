@@ -34,7 +34,7 @@
         <jetty.plugin.version>9.3.9.v20160517</jetty.plugin.version>
         <javax.servlet.version>3.0.1</javax.servlet.version>
         <postgresql.version>9.4-1206-jdbc42</postgresql.version>
-        <hibernate.version>5.1.1.Final</hibernate.version>
+        <hibernate.version>5.4.24.Final</hibernate.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <jetty.plugin.version>9.3.9.v20160517</jetty.plugin.version>
